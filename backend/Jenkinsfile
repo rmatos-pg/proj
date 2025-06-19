@@ -7,7 +7,7 @@ pipeline {
 
   environment {
     SONAR_HOST_URL = 'http://sonarqube:9000'
-    SONAR_TOKEN = credentials('novoToken')
+    SONAR_TOKEN = credentials('sonar-token')
     DOCKER_IMAGE = 'rmatos/backend-app' // ajuste para o nome correto no Docker Hub
   }
 
