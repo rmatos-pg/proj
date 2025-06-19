@@ -1,33 +1,80 @@
 pipeline {
   agent any
-  tools { maven 'Maven' }
+
+  tools {
+    maven 'Maven'
+  }
+
   environment {
     SONAR_HOST_URL = 'http://sonarqube:9000'
     SONAR_TOKEN = credentials('sonar-token')
+    DOCKER_IMAGE = 'rmatos/backend-app' // ajuste para o nome correto no Docker Hub
   }
+
   stages {
     stage('Checkout') {
       steps {
         git url: 'https://github.com/rmatos-pg/proj.git', branch: 'main', credentialsId: 'JNK'
       }
     }
+
     stage('Build & Test') {
       steps {
-        sh 'cd backend && mvn clean package -DskipTests'
-      }
-    }
-    stage('SonarQube Analysis') {
-      steps {
-        withSonarQubeEnv('SonarQube') {
-          sh 'cd backend && mvn sonar:sonar -Dsonar.projectKey=backend -Dsonar.login=$SONAR_TOKEN'
+        dir('backend') {
+          sh 'mvn clean package -DskipTests'
         }
       }
     }
+
+    stage('SonarQube Analysis') {
+      steps {
+        dir('backend') {
+          withSonarQubeEnv('SonarQube') {
+            sh '''
+              mvn sonar:sonar \
+                -Dsonar.projectKey=backend \
+                -Dsonar.host.url=$SONAR_HOST_URL \
+                -Dsonar.login=$SONAR_TOKEN
+            '''
+          }
+        }
+      }
+    }
+
     stage('Quality Gate') {
       steps {
         timeout(time: 5, unit: 'MINUTES') {
           waitForQualityGate abortPipeline: true
         }
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        script {
+          docker.build(env.DOCKER_IMAGE, 'backend/.')
+        }
+      }
+    }
+
+    stage('Docker Push') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          script {
+            sh """
+              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+              docker push $DOCKER_IMAGE
+            """
+          }
+        }
+      }
+    }
+
+    // Opcional — exemplo de deploy local
+    stage('Deploy (local)') {
+      steps {
+        sh 'docker stop backend-app || true && docker rm backend-app || true'
+        sh 'docker run -d --name backend-app -p 8080:8080 rmatos/backend-app'
       }
     }
   }
