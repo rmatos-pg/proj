@@ -1,24 +1,42 @@
 pipeline {
   agent any
-  tools { maven 'Maven' }
+
+  tools {
+    maven 'Maven'
+  }
+
   environment {
     SONAR_HOST_URL = 'http://sonarqube:9000'
     SONAR_TOKEN = credentials('sonar-token')
   }
+
   stages {
     stage('Checkout') {
-      steps { git url: 'https://github.com/SEU_USUARIO/NOME_REPOSITORIO.git', branch: 'main' }
+      steps {
+        // Usa o SCM configurado no job, evita erro de auth
+        checkout scm
+      }
     }
+
     stage('Build & Test') {
-      steps { sh 'mvn clean package -DskipTests' }
+      steps {
+        sh 'mvn clean package -DskipTests'
+      }
     }
+
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv('SonarQube') {
-          sh 'mvn sonar:sonar -Dsonar.projectKey=backend -Dsonar.login=$SONAR_TOKEN'
+          sh """
+            mvn sonar:sonar \
+              -Dsonar.projectKey=backend \
+              -Dsonar.host.url=${SONAR_HOST_URL} \
+              -Dsonar.login=${SONAR_TOKEN}
+          """
         }
       }
     }
+
     stage('Quality Gate') {
       steps {
         timeout(time: 5, unit: 'MINUTES') {
