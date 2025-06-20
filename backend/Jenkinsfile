@@ -75,7 +75,11 @@ pipeline {
     stage('Deploy (local)') {
       steps {
         sh '''
+
+          echo "Rodando: docker rm -f backend-app || true"
           docker rm -f backend-app || true
+
+          echo "Rodando: docker run -d --name backend-app -p 8082:8080 ${DOCKER_IMAGE}"
           docker run -d --name backend-app -p 8082:8080 ${DOCKER_IMAGE}
         '''
       }
