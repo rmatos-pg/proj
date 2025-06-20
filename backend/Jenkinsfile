@@ -76,7 +76,7 @@ pipeline {
       steps {
         sh '''
           docker rm -f backend-app || true
-          docker run -d --name backend-app -p 8080:8080 ${DOCKER_IMAGE}
+          docker run -d --name backend-app -p 8082:8080 ${DOCKER_IMAGE}
         '''
       }
     }
