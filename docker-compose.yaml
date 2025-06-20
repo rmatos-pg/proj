@@ -18,7 +18,17 @@ services:
     depends_on:
       - mongodb
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/testdb
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/testdb
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
 
   jenkins:
     build:
@@ -30,7 +40,7 @@ services:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # Permite Jenkins usar Docker
+      - /var/run/docker.sock:/var/run/docker.sock
       - jenkins_home:/var/jenkins_home
     privileged: true
     restart: unless-stopped
