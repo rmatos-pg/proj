@@ -18,7 +18,7 @@ services:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/testdb
 
   jenkins:
-    image: jenkins/jenkins:lts-jdk11-docker
+    image: jenkins/jenkins:lts-jdk11
     user: root
     ports:
       - "8081:8080"
