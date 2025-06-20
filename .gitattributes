@@ -1,0 +1,26 @@
+# Ajusta arquivos de texto para converter CRLF/LF automaticamente
+* text=auto
+
+# Força arquivos .sh para usar LF (bom para scripts em Linux/macOS)
+*.sh text eol=lf
+
+# Força arquivos .bat para usar CRLF (bom para scripts no Windows)
+*.bat text eol=crlf
+
+# Força arquivos .pom (Maven) para usar LF (evita warning no Windows)
+*.pom text eol=lf
+
+# Força arquivos de configuração XML para usar LF
+*.xml text eol=lf
+
+# Outras extensões de texto comuns em Java
+*.java text eol=lf
+*.properties text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binários não devem ser alterados
+*.jar binary
+*.exe binary
+*.png binary
+*.jpg binary

@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2025-06-19 20:45:48.356 UTC</timestamp>
+  <md5sum>a27c0c9ebb0839cc01821c5894efc717</md5sum>
+  <fileName>Credential id=sonar-token name=novoToken</fileName>
+  <usages>
+    <entry>
+      <string>backend-ci</string>
+      <ranges>6-14,17</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

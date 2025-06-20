@@ -1,0 +1,26 @@
+Started by user [8mha:////4DC9CR5M253yGcxHx8gEzHTs3ExQhDZUO1LqFjPS5zdNAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZu/dLi1CL9xJTczDwACG0V4sAAAAA=[0mAdministrador
+Lightweight checkout support not available, falling back to full checkout.
+Checking out git https://github.com/rmatos-pg/proj into /var/jenkins_home/workspace/backend-ci@script/b527958cab024042ea9775dea444ff3f9a4d67e2025fcc3a125b822e7288eacd to read Jenkinsfile
+The recommended git tool is: git
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/rmatos-pg/proj
+ > git init /var/jenkins_home/workspace/backend-ci@script/b527958cab024042ea9775dea444ff3f9a4d67e2025fcc3a125b822e7288eacd # timeout=10
+Fetching upstream changes from https://github.com/rmatos-pg/proj
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/rmatos-pg/proj +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/rmatos-pg/proj # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Seen branch in repository origin/main
+Seen branch in repository origin/master
+Seen 2 remote branches
+ > git show-ref --tags -d # timeout=10
+Checking out Revision 8086c67fe026fefbeac15d6d095c877877cab8a9 (origin/master, origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 8086c67fe026fefbeac15d6d095c877877cab8a9 # timeout=10
+Commit message: "Projeto completo: backend, Jenkinsfile, SonarQube integration"
+First time build. Skipping changelog.
+ERROR: /var/jenkins_home/workspace/backend-ci@script/b527958cab024042ea9775dea444ff3f9a4d67e2025fcc3a125b822e7288eacd/Jenkinsfile not found
+Finished: FAILURE

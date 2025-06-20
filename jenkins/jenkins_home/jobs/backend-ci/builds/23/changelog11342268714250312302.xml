@@ -1,0 +1,10 @@
+commit 046b3f1ae09484ca18290261bb9d3a82b8016eaf
+tree 1498f0359d515002ebd38194c6196c3ce39e6fdd
+parent 1311803fe1cb90c082e9823bcc890b7bf6beff32
+author rmatos-pg <rvmmax@gmail.com> 2025-06-19 20:40:33 -0300
+committer rmatos-pg <rvmmax@gmail.com> 2025-06-19 20:40:33 -0300
+
+    Comenta SonarQube Jenkinsfile
+
+
+:100644 100644 9097e40f165ded6355357b1e5a808f0558bf06db 3ed97e5d0bb3f2d5cc35c564b6cc8bf4e8814e1c M	backend/Jenkinsfile

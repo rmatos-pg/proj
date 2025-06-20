@@ -1,0 +1,19 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2025-06-19 20:54:35.361 UTC</timestamp>
+  <md5sum>eb7d0f7a23ba687d607737b2fcbdb6b9</md5sum>
+  <fileName>Credential id=JNK name=rvmatos-pr/****** (Credencial Jenkis)</fileName>
+  <usages>
+    <entry>
+      <string>backend-ci</string>
+      <ranges>7-26</ranges>
+    </entry>
+  </usages>
+  <facets>
+    <com.cloudbees.plugins.credentials.fingerprints.ItemCredentialsFingerprintFacet plugin="credentials@1415.v831096eb_5534">
+      <timestamp>1750378365592</timestamp>
+      <itemFullName>backend-ci</itemFullName>
+      <timestamp0>1750376741816</timestamp0>
+    </com.cloudbees.plugins.credentials.fingerprints.ItemCredentialsFingerprintFacet>
+  </facets>
+</fingerprint>

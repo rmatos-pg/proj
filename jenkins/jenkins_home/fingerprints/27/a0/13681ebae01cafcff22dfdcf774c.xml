@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2025-06-19 22:02:02.21 UTC</timestamp>
+  <md5sum>27a013681ebae01cafcff22dfdcf774c</md5sum>
+  <fileName>Credential id=sonar-token name=sonar-token</fileName>
+  <usages>
+    <entry>
+      <string>backend-ci</string>
+      <ranges>18-26</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

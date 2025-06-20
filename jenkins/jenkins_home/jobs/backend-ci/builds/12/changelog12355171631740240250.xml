@@ -1,0 +1,10 @@
+commit be1efc3a485036828a511e2010aa2f794ffc64e7
+tree 0f0f40f5fe30bd86f01903b58453c8b7ddbcb600
+parent 7e33668d763d6b0221d7df368690cfe7494bbc81
+author rmatos-pg <rvmmax@gmail.com> 2025-06-19 18:25:09 -0300
+committer rmatos-pg <rvmmax@gmail.com> 2025-06-19 18:25:09 -0300
+
+    Corrige URL incorreta do git no Jenkinsfile
+
+
+:100644 100644 7c895367b8bd28c0b37581be7ec062196805b30e b4a7e85c9eb2889898c11df14e6681959ba5a09d M	backend/Jenkinsfile

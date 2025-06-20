@@ -1,0 +1,20 @@
+commit be2bc57091068ea14dc0c116e011b3992344f58f
+tree 4bfe5f7f697647b444911efa96624923c63fe18d
+parent 0201bc3b0ca80a0405d770f6753aac7539003050
+author rmatos-pg <rvmmax@gmail.com> 2025-06-19 19:42:29 -0300
+committer rmatos-pg <rvmmax@gmail.com> 2025-06-19 19:42:29 -0300
+
+    Corrige URL incorreta do git no Jenkinsfile
+
+
+:100644 100644 048e942797bf22d35fda453c9ac70727857989c9 daa06a6c2dd178985ed91f4fb1fecfc7d16337d3 M	backend/Jenkinsfile
+commit 0201bc3b0ca80a0405d770f6753aac7539003050
+tree 1c0cee368c45bba188b16acacff75f532930d106
+parent 4dc28eba4d8a4c1f745aa83d93d773770e01c5cb
+author rmatos-pg <rvmmax@gmail.com> 2025-06-19 19:26:34 -0300
+committer rmatos-pg <rvmmax@gmail.com> 2025-06-19 19:26:34 -0300
+
+    Adiciona README
+
+
+:000000 100644 0000000000000000000000000000000000000000 f842e18bd310b266d8c6b42e5b5da5d177177d50 A	README.md
