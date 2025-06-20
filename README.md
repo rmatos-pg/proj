@@ -1,27 +1,28 @@
-# 🛠️ Backend CI Pipeline com Jenkins, Docker e SonarQube
 
-Este repositório contém um projeto Java de exemplo (Spring Boot) integrado a uma **pipeline de CI (Integração Contínua)** usando:
+# 🛠️ Backend CI/CD Pipeline com Jenkins, Docker e SonarQube
+
+Este repositório contém um projeto de backend Java (Spring Boot) com uma pipeline de Integração Contínua (CI) automatizada utilizando:
 
 - Jenkins
 - SonarQube
-- Docker
+- Docker (com Docker Compose)
 - Maven
 - GitHub
 
-O objetivo é fornecer um ambiente completo, pronto para ser **executado localmente com Docker**, para fins de estudo, testes ou extensão.
+O objetivo é fornecer um ambiente completo, pronto para ser executado localmente via Docker, ideal para estudos, testes e extensões.
 
 ---
 
-## 📦 Tecnologias e Ferramentas Utilizadas
+## 📦 Tecnologias Utilizadas
 
-- **Java 21 (Eclipse Temurin)**
-- **Spring Boot**
-- **Maven**
-- **Docker / Docker Compose**
-- **Jenkins**
-- **SonarQube**
-- **GitHub**
-- **Linux (base WSL2)**
+- Java 21 (Eclipse Temurin)
+- Spring Boot
+- Maven
+- Docker & Docker Compose
+- Jenkins
+- SonarQube
+- GitHub
+- Linux (ambiente WSL2, opcional)
 
 ---
 
@@ -29,20 +30,19 @@ O objetivo é fornecer um ambiente completo, pronto para ser **executado localme
 
 ### 1. ⚙️ Pré-requisitos
 
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- (Opcional) [Visual Studio Code](https://code.visualstudio.com/) com a extensão *Remote - Containers* ou *Dev Containers*
+- Docker
+- Docker Compose
+- (Opcional) VS Code com a extensão **Dev Containers**
 
 ---
 
 ### 2. 📁 Estrutura esperada do projeto
 
-```
+```plaintext
 .
-├── backend/                  # Projeto Java (Spring Boot)
-│   └── Jenkinsfile           # Pipeline declarativa para CI
-├── jenkins/                 # Configurações opcionais para Jenkins (se necessário)
-├── docker-compose.yml       # Orquestra Jenkins + Sonar + app
+├── backend/                # Projeto Java (Spring Boot)
+│   └── Jenkinsfile         # Pipeline declarativa
+├── docker-compose.yml      # Orquestra Jenkins + SonarQube + app
 └── README.md
 ```
 
@@ -50,69 +50,58 @@ O objetivo é fornecer um ambiente completo, pronto para ser **executado localme
 
 ### 3. ▶️ Subindo o ambiente com Docker
 
-Execute o seguinte comando na raiz do projeto:
+Na raiz do projeto, execute:
 
 ```bash
 docker-compose up -d
 ```
 
-Este comando irá levantar:
+Esse comando iniciará os seguintes serviços:
 
-- Jenkins: [http://localhost:8080](http://localhost:8080)
-- SonarQube: [http://localhost:9000](http://localhost:9000)
+- **Jenkins**: http://localhost:8081
+- **SonarQube**: http://localhost:9000
 
-A primeira inicialização pode levar alguns minutos.
-
----
-
-### 4. 🧪 Primeira execução da pipeline
-
-#### Acesso ao Jenkins
-
-1. Acesse o Jenkins: [http://localhost:8080](http://localhost:8080)
-2. Crie o primeiro usuário ou use o já configurado (caso tenha sido versionado)
-3. O Jenkins buscará automaticamente este repositório (`main`) e executará o pipeline contido no `Jenkinsfile`:
-
-#### O que a pipeline faz:
-
-1. Clona o projeto do GitHub (usando credencial segura)
-2. Executa `mvn clean package -DskipTests`
-3. Executa `mvn sonar:sonar` para análise de qualidade no SonarQube
-4. Espera o **Quality Gate**
-5. (Opcional) Etapas futuras de build da imagem Docker e deploy local
+⚠️ A primeira inicialização pode levar alguns minutos.
 
 ---
 
-## 📊 SonarQube
+### 4. 🧪 Executando a pipeline no Jenkins
 
-- A análise de código será publicada em: [http://localhost:9000](http://localhost:9000)
-- Projeto será identificado com a key: `backend`
-- Qualidade do código será verificada automaticamente pelo **Quality Gate**
+1. Acesse o Jenkins em: [http://localhost:8081](http://localhost:8081)
+2. Finalize o assistente de configuração (caso seja a primeira vez)
+3. O Jenkins executará automaticamente o pipeline definido no `Jenkinsfile`, que inclui:
 
----
-
-## 🔐 Segurança
-
-⚠️ **Importante**: nenhuma credencial sensível está exposta neste repositório.
-
-- Credenciais de GitHub e tokens do Sonar são injetados via Jenkins `withCredentials`
-- O repositório é seguro para ser clonado e testado por outras pessoas
-
----
-
-## 🙋‍♂️ Contribuindo
-
-Sinta-se livre para:
-
-- Estender a pipeline
-- Adicionar novos testes, steps de build, deploy ou notificações
-- Criar issues ou enviar pull requests
+```text
+✔️ Clonagem do projeto do GitHub
+✔️ Build com Maven (mvn clean package -DskipTests)
+✔️ Análise de qualidade com SonarQube
+✔️ Validação com Quality Gate
+✔️ Build da imagem Docker
+✔️ Deploy local do backend (porta 8082 → 8080)
+```
 
 ---
 
-## 🧼 Para encerrar o ambiente
+### 📊 SonarQube
 
-Para parar e remover os containers:
+- Acesse: [http://localhost:9000](http://localhost:9000)
+- Projeto: `backend`
+- O Quality Gate garante que o código atenda padrões mínimos de qualidade
+
+---
+
+### 🔐 Segurança
+
+> Nenhuma credencial sensível está exposta neste repositório.
+
+- As credenciais (GitHub, SonarQube, Docker Hub) são injetadas via `withCredentials` no Jenkins.
+- Este projeto está pronto para ser testado de forma segura por qualquer pessoa.
+
+---
+
+### 🧼 Encerrando o ambiente
+
+Para parar e remover os containers Docker:
 
 ```bash
 docker-compose down
@@ -120,18 +109,27 @@ docker-compose down
 
 ---
 
+## 🙋‍♂️ Contribuindo
+
+Você pode:
+
+- Estender a pipeline com novos steps (testes, notificações, deploys)
+- Corrigir erros ou adicionar melhorias
+- Criar issues ou enviar pull requests
+
+---
+
 ## 📚 Referências
 
-- [Documentação Jenkins](https://www.jenkins.io/doc/)
+- [Jenkins Documentation](https://www.jenkins.io/doc/)
 - [SonarQube Docs](https://docs.sonarsource.com/)
 - [Maven](https://maven.apache.org/)
 - [Spring Boot](https://spring.io/projects/spring-boot)
+- [Docker Compose](https://docs.docker.com/compose/)
 
 ---
 
 ## 👨‍💻 Autor
 
 **Rodrigo Matos**
-Projeto de estudo e demonstração de CI/CD com ferramentas de mercado.
-
----
+Projeto de estudo e demonstração de CI/CD com ferramentas amplamente utilizadas no mercado.
