@@ -8,7 +8,7 @@ pipeline {
   environment {
     SONAR_HOST_URL = 'http://sonarqube:9000'
     SONAR_TOKEN = credentials('sonar-token')
-    DOCKER_IMAGE = 'rmatos/backend-app'
+    DOCKER_IMAGE = 'dockrmatos/backend-app:latest'
   }
 
   stages {
@@ -34,7 +34,7 @@ pipeline {
               mvn sonar:sonar \
                 -Dsonar.projectKey=backend \
                 -Dsonar.host.url=$SONAR_HOST_URL \
-                -Dsonar.login=${SONAR_TOKEN}
+                -Dsonar.login=$SONAR_TOKEN
             '''
           }
         }
@@ -58,7 +58,6 @@ pipeline {
     stage('Docker Build') {
       steps {
         script {
-          // Faz build da imagem usando docker pipeline plugin
           docker.build(env.DOCKER_IMAGE, 'backend/.')
         }
       }
@@ -67,20 +66,18 @@ pipeline {
     stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-          script {
-            sh """
-              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-              docker push ${env.DOCKER_IMAGE}
-            """
-          }
+          sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+          sh "docker push ${env.DOCKER_IMAGE}"
         }
       }
     }
 
     stage('Deploy (local)') {
       steps {
-        sh 'docker stop backend-app || true && docker rm backend-app || true'
-        sh "docker run -d --name backend-app -p 8080:8080 ${env.DOCKER_IMAGE}"
+        sh '''
+          docker rm -f backend-app || true
+          docker run -d --name backend-app -p 8080:8080 ${DOCKER_IMAGE}
+        '''
       }
     }
   }

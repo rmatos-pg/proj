@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mongodb:
     image: mongo:6.0
@@ -8,7 +10,8 @@ services:
       - mongo_data:/data/db
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
     container_name: backend
     ports:
       - "8080:8080"
@@ -18,14 +21,18 @@ services:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/testdb
 
   jenkins:
-    image: jenkins/jenkins:2.504.2-lts-jdk21
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    container_name: jenkins
     user: root
     ports:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock # Permite Jenkins usar Docker
       - jenkins_home:/var/jenkins_home
+    privileged: true
     restart: unless-stopped
 
   sonarqube:
@@ -42,4 +49,4 @@ services:
 volumes:
   mongo_data:
   sonarqube_data:
-  jenkins_home: # <-- Adicione esta linha
+  jenkins_home:
