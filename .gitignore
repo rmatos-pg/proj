@@ -1,0 +1,38 @@
+# Ignora dados do Jenkins que são gerados
+jenkins/jenkins_home/caches/
+jenkins/jenkins_home/.m2/repository/
+jenkins/jenkins_home/secrets/
+jenkins/jenkins_home/jobs/**/workspace/
+jenkins/jenkins_home/users/
+
+# Ignore arquivos de log do Jenkins
+jenkins/jenkins_home/*.log
+
+# Dados temporários do Maven
+**/target/
+**/.mvn/
+**/.settings/
+**/.metadata/
+
+# Configurações do sistema e arquivos temporários
+*.iml
+*.log
+*.class
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+
+# Diretórios do sistema operacional (Windows)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Diretórios do sistema operacional (Mac)
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Pastas de build e dependências do Maven (se houver fora do Jenkins)
+target/
+.mvn/
